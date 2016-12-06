@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.pierregmail.thube.tabataproject.Activity.MainActivity">
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <!-- Here you put the rest of your current view-->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/boutton_préparation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onPreparationClick"
+                android:text="Préparation : 10 secondes" />
+
+            <Button
+                android:id="@+id/boutton_exercice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onExerciceClick"
+                android:text="Exercices : 30 secondes" />
+
+            <Button
+                android:id="@+id/bouton_repos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onReposClick"
+                android:text="Repos : 10 secondes" />
+
+            <Button
+                android:id="@+id/bouton_cycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onCycleClick"
+                android:text="Nombre de cycles : 3" />
+
+            <Button
+                android:id="@+id/bouton_tabata"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTabataClick"
+                android:text="Nombre de tabatas : 1" />
+
+            <LinearLayout
+                android:id="@+id/ligne"
+                android:layout_width="fill_parent"
+                android:layout_height="5px"
+                android:layout_marginBottom="10px"
+                android:layout_marginTop="10px"
+                android:background="#FF909090"
+                android:orientation="vertical"></LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ligne2"
+                android:layout_width="fill_parent"
+                android:layout_height="5px"
+                android:layout_marginBottom="10px"
+                android:layout_marginTop="10px"
+                android:background="#FF909090"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1.0">
+
+                <Button
+                    android:text="Charger une configuration"
+                    android:id="@+id/buttonCharger"
+                    android:onClick="onCharger"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:layout_width="0dip"
+                    android:textSize="12sp"/>
+
+                <Button
+                    android:id="@+id/buttonEnregistrer"
+                    android:layout_alignParentBottom="true"
+                    android:text="Enregistrer cette configuration"
+                    android:onClick="onEnregistrer"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:layout_width="0dip"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ligne3"
+                android:layout_width="fill_parent"
+                android:layout_height="5px"
+                android:layout_marginBottom="10px"
+                android:layout_marginTop="10px"
+                android:background="#FF909090"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="Commencer"
+                android:onClick="onStartClick"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
