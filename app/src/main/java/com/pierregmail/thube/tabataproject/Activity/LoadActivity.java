@@ -75,8 +75,6 @@ public class LoadActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("Configurations ", "" + position);
                 configurationsCliked = adapter.getItem(position);
-                /*Log.e("Configuration clicked",""+configurationsCliked.toString());
-                Log.e("Configuration ID",""+configurationsCliked.getId());*/
                 getIntent().putExtra(MainActivity.ACTUAL_CONFIGURATION_ID,configurationsCliked.getId());
                 setResult(RESULT_OK, getIntent());
                 finish();

@@ -144,11 +144,7 @@ public class StartActivity extends AppCompatActivity {
         nombreCycle.setText("Cycles: " + nbCyclesRestant);
         nombreTabata.setText("Tabs: " + nbTabatasRestant);
 
-        //envoyé etat avant pause
         parameters();
-/*        if(timer != null){
-            timer.cancel();
-        }*/
         if(isRun){
             onStartClick(startButton);
         }
@@ -179,12 +175,10 @@ public class StartActivity extends AppCompatActivity {
                 if (currentTimer.equals("PreparationT")) {
                     currentTimer = "ExerciceT";
                     timerEtat.setText("Exercice");
-                    timerEtat.setTextColor(Color.GREEN);
                     launch();
                 } else if (currentTimer.equals("ExerciceT")) {
                     currentTimer = "ReposT";
                     timerEtat.setText("Repos");
-                    timerEtat.setTextColor(Color.RED);
                     launch();
                 } else if ((currentTimer.equals("ReposT") && tabataConfigurations.getCycles() > 1) || tabataConfigurations.getTabatas() > 0) { // si repos et nbcycle > 0  OU   nbTabatasRestant > 0
                     if (currentTimer.equals("ReposT") && tabataConfigurations.getCycles() > 1) { //premier cas, il reste au moins un cycle
@@ -192,7 +186,6 @@ public class StartActivity extends AppCompatActivity {
                         tabataConfigurations.setCycles(nbCyclesRestant);
                         currentTimer = "ExerciceT";
                         timerEtat.setText("Exercice");
-                        timerEtat.setTextColor(Color.GREEN);
                         nombreCycle.setText("Cycles: " + nbCyclesRestant);
                         launch();
                     } else if (tabataConfigurations.getTabatas() > 1) { //premier second cas, plus de cycle mais encore au moins DEUX tabatas restant
@@ -202,7 +195,6 @@ public class StartActivity extends AppCompatActivity {
                         nbCyclesRestant = tabataConfigurations.getCycles() - 1;
                         currentTimer = "PreparationT";
                         timerEtat.setText("Preparation");
-                        timerEtat.setTextColor(Color.YELLOW);
                         nombreTabata.setText("Tabs: " + nbTabatasRestant);
                         nombreCycle.setText("Cycles: " + NombreCyclesPourChaqueTab);
                         launch();
@@ -257,25 +249,11 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void parameters() {
-        startButton.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    startButton.setTextColor(Color.RED);
-                    pauseButton.setTextColor(Color.GREEN);
-                }
-                return false;
-            }
-        });
-
         pauseButton.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    startButton.setTextColor(Color.GREEN);
-                    pauseButton.setTextColor(Color.RED);
                     if (pauseButton.getText().equals("Pause")) {
                         pauseButton.setText("Reprendre");
                     } else if (pauseButton.getText().equals("Reprendre")) {

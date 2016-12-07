@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
     /* Création d'un objet de type TabataConfigurations avec des valeurs par défault */
     TabataConfigurations configuration = new TabataConfigurations(10, 30, 10, 3, 1);
 
-    //private TextView dialog_input;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,19 +148,16 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, notification, Toast.LENGTH_SHORT).show();
             configuration.setPreparation(data.getIntExtra(TPS_PREPARATION, 0));
             MiseAJour();
-
         } else if (requestCode == EXERCICE_ACTIVITY_REQUEST && resultCode == RESULT_OK) {
             String notification = "Retour ExerciceActivity";
             Toast.makeText(this, notification, Toast.LENGTH_SHORT).show();
             configuration.setExercice(data.getIntExtra(TPS_EXERCICE, 0));
             MiseAJour();
-
         } else if (requestCode == REPOS_ACTIVITY_REQUEST && resultCode == RESULT_OK) {
             String notification = "Retour ReposActivity";
             Toast.makeText(this, notification, Toast.LENGTH_SHORT).show();
             configuration.setRepos(data.getIntExtra(TPS_REPOS, 0));
             MiseAJour();
-
         } else if (requestCode == TABATA_ACTIVITY_REQUEST && resultCode == RESULT_OK) {
             String notification = "Retour TabataActivity";
             Toast.makeText(this, notification, Toast.LENGTH_SHORT).show();
@@ -174,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
             TabataConfigurations newConfiguration = TabataConfigurations.findById(TabataConfigurations.class, data.getLongExtra(ACTUAL_CONFIGURATION_ID, 0));
             configuration = new TabataConfigurations(newConfiguration.getPreparation(),newConfiguration.getExercice(),newConfiguration.getRepos(),newConfiguration.getCycles(),newConfiguration.getTabatas());
             configuration.setNom(newConfiguration.getNom());
-            Log.e("returnConf", configuration.toString());
             MiseAJour();
         }
     }
