@@ -139,7 +139,6 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void onStartClick(View view) {
-        Log.e("bubi","P"+tpspreparation+" E"+tpsexercice+" R"+tpsrepos+" C"+ nbCyclesRestant +" T"+ nbTabatasRestant);
         if (currentTimer.equals("ReadyT") || currentState.equals("inPause")) { //si début, au moment au l'activity est lancé
             tabataConfigurations = new TabataConfigurations(tpspreparation, tpsexercice, tpsrepos, nbCyclesRestant, nbTabatasRestant);
             currentTimer = "PreparationT"; //premier timer, celui pour le tps de preparation
