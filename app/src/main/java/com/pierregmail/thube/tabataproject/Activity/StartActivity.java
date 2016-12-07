@@ -37,6 +37,23 @@ public class StartActivity extends AppCompatActivity {
     private String etatAvantPause;
     private int NombreCyclesPourChaqueTab;
 
+    /* Data for the SaveInstanceState */
+    static final String TEMPS_PREPARTION = "tempsPreparation";
+    static final String TEMPS_REPOS = "tempsRepos";
+    static final String TEMPS_EXERCICE = "tempsExercice";
+    static final String NOMBRE_CYCLE = "nombreCycle";
+    static final String NOMBRE_TABATA = "nombreTabata";
+    static final String NOMBRE_CYCLE_POUR_CHAQUE_TAB = "nombreCyclePourChaqueTab";
+
+    static final String TIMER_ETAT = "timerEtat";
+    static final String TIMER_VALUE = "timerValue";
+
+    static final String CURRENT_STATE = "currentState";
+    static final String CURRENT_TIMER = "currentTimer";
+
+    static final String SAVED_TIMER = "savedTimer";
+    static final String ETAT_AVANT_PAUSE = "etatAvantPause";
+    static final String ISRUN = "isRun";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +76,86 @@ public class StartActivity extends AppCompatActivity {
         currentState = "inPause";//avant que le timer commence, l'état est "pause"
         currentTimer = "ReadyT";//au moment du lancement de l'activity, avant le premier click sur start
 
-        nombreCycle.setText("Cycles: "+nbCyclesRestant);
-        nombreTabata.setText("Tabs: "+nbTabatasRestant);
+        nombreCycle.setText("Cycles: " + nbCyclesRestant);
+        nombreTabata.setText("Tabs: " + nbTabatasRestant);
 
         parameters();
     }
 
-    public void launch() {
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        if (currentTimer.equals("Ready to launch!") || currentTimer.equals("Paused!")){
+            savedInstanceState.putBoolean(ISRUN,false);
+        }
+        else {
+            savedInstanceState.putBoolean(ISRUN,true);
+            onPauseClick(pauseButton);
+        }
+        // Save the user's current game state
+        savedInstanceState.putInt(TEMPS_PREPARTION, tpspreparation);
+        savedInstanceState.putInt(TEMPS_REPOS, tpsrepos);
+        savedInstanceState.putInt(TEMPS_EXERCICE,tpsexercice);
+        savedInstanceState.putInt(NOMBRE_CYCLE, nbCyclesRestant);
+        savedInstanceState.putInt(NOMBRE_TABATA, nbTabatasRestant);
+        savedInstanceState.putInt(NOMBRE_CYCLE_POUR_CHAQUE_TAB, NombreCyclesPourChaqueTab);
 
+        savedInstanceState.putString(TIMER_ETAT, String.valueOf(timerEtat.getText()));
+        savedInstanceState.putString(TIMER_VALUE, String.valueOf(timerValue.getText()));
+
+        savedInstanceState.putString(CURRENT_STATE, currentState);
+        savedInstanceState.putString(CURRENT_TIMER, currentTimer);
+
+        savedInstanceState.putString(SAVED_TIMER,savedTimer);
+        savedInstanceState.putString(ETAT_AVANT_PAUSE,etatAvantPause);
+
+        savedInstanceState.putLong("updatedTime", updatedTime);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        // Always call the superclass so it can restore the view hierarchy
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // Restore value of members from saved state
+        tpspreparation = savedInstanceState.getInt(TEMPS_PREPARTION);
+        tpsrepos = savedInstanceState.getInt(TEMPS_REPOS);
+        tpsexercice = savedInstanceState.getInt(TEMPS_EXERCICE);
+        nbCyclesRestant = savedInstanceState.getInt(NOMBRE_CYCLE);
+        nbTabatasRestant = savedInstanceState.getInt(NOMBRE_TABATA);
+        NombreCyclesPourChaqueTab = savedInstanceState.getInt(NOMBRE_CYCLE_POUR_CHAQUE_TAB);
+        tabataConfigurations = new TabataConfigurations(tpspreparation, tpsexercice, tpsrepos, nbCyclesRestant, nbTabatasRestant);
+
+        currentState = savedInstanceState.getString(CURRENT_STATE);
+        currentTimer = savedInstanceState.getString(CURRENT_TIMER);
+
+        timerEtat.setText(savedInstanceState.getString(TIMER_ETAT));
+        timerValue.setText(savedInstanceState.getString(TIMER_VALUE));
+
+        savedTimer = savedInstanceState.getString(SAVED_TIMER);
+        etatAvantPause = savedInstanceState.getString(ETAT_AVANT_PAUSE);
+
+        boolean isRun = savedInstanceState.getBoolean(ISRUN);
+
+        updatedTime = savedInstanceState.getLong("updatedTime");
+
+        nombreCycle.setText("Cycles: " + nbCyclesRestant);
+        nombreTabata.setText("Tabs: " + nbTabatasRestant);
+
+        //envoyé etat avant pause
+        parameters();
+/*        if(timer != null){
+            timer.cancel();
+        }*/
+        if(isRun){
+            onStartClick(startButton);
+        }
+        miseAJour();
+    }
+
+    public void launch() {
         /* Set la variable updatedTime en fonction du timer */
         if (currentTimer.equals("PreparationT")) {
             updatedTime = tpspreparation * 1000;
@@ -92,32 +181,32 @@ public class StartActivity extends AppCompatActivity {
                     timerEtat.setText("Exercice");
                     timerEtat.setTextColor(Color.GREEN);
                     launch();
-                }else if (currentTimer.equals("ExerciceT")){
+                } else if (currentTimer.equals("ExerciceT")) {
                     currentTimer = "ReposT";
                     timerEtat.setText("Repos");
                     timerEtat.setTextColor(Color.RED);
                     launch();
-                }else if((currentTimer.equals("ReposT") && tabataConfigurations.getCycles() > 1 ) || tabataConfigurations.getTabatas() > 0){ // si repos et nbcycle > 0  OU   nbTabatasRestant > 0
-                    if(currentTimer.equals("ReposT") && tabataConfigurations.getCycles() > 1){ //premier cas, il reste au moins un cycle
-                        nbCyclesRestant = tabataConfigurations.getCycles()-1;
+                } else if ((currentTimer.equals("ReposT") && tabataConfigurations.getCycles() > 1) || tabataConfigurations.getTabatas() > 0) { // si repos et nbcycle > 0  OU   nbTabatasRestant > 0
+                    if (currentTimer.equals("ReposT") && tabataConfigurations.getCycles() > 1) { //premier cas, il reste au moins un cycle
+                        nbCyclesRestant = tabataConfigurations.getCycles() - 1;
                         tabataConfigurations.setCycles(nbCyclesRestant);
                         currentTimer = "ExerciceT";
                         timerEtat.setText("Exercice");
                         timerEtat.setTextColor(Color.GREEN);
-                        nombreCycle.setText("Cycles: "+nbCyclesRestant);
+                        nombreCycle.setText("Cycles: " + nbCyclesRestant);
                         launch();
-                    }else if(tabataConfigurations.getTabatas() > 1){ //premier second cas, plus de cycle mais encore au moins DEUX tabatas restant
-                        nbTabatasRestant = tabataConfigurations.getTabatas()-1;
+                    } else if (tabataConfigurations.getTabatas() > 1) { //premier second cas, plus de cycle mais encore au moins DEUX tabatas restant
+                        nbTabatasRestant = tabataConfigurations.getTabatas() - 1;
                         tabataConfigurations.setTabatas(nbTabatasRestant);
                         tabataConfigurations.setCycles(NombreCyclesPourChaqueTab);
-                        nbCyclesRestant = tabataConfigurations.getCycles()-1;
+                        nbCyclesRestant = tabataConfigurations.getCycles() - 1;
                         currentTimer = "PreparationT";
                         timerEtat.setText("Preparation");
                         timerEtat.setTextColor(Color.YELLOW);
-                        nombreTabata.setText("Tabs: "+nbTabatasRestant);
-                        nombreCycle.setText("Cycles: "+NombreCyclesPourChaqueTab);
+                        nombreTabata.setText("Tabs: " + nbTabatasRestant);
+                        nombreCycle.setText("Cycles: " + NombreCyclesPourChaqueTab);
                         launch();
-                    }else if(tabataConfigurations.getTabatas() == 1){ //deuxième second cas, plus de cycle et fin du dernier tabata, donc fin du timer
+                    } else if (tabataConfigurations.getTabatas() == 1) { //deuxième second cas, plus de cycle et fin du dernier tabata, donc fin du timer
                         currentTimer = "ReadyT";
                         timerEtat.setText("Fin");
                     }
@@ -132,20 +221,19 @@ public class StartActivity extends AppCompatActivity {
             timer.cancel();
             savedTimer = new String(currentTimer);
             currentTimer = "PauseT";
-            etatAvantPause = new String(""+timerEtat.getText());
+            etatAvantPause = new String("" + timerEtat.getText());
             timerEtat.setText("Pause");
             miseAJour();
         }
     }
 
     public void onStartClick(View view) {
-        if (currentTimer.equals("ReadyT") || currentState.equals("inPause")) { //si début, au moment au l'activity est lancé
+        if (currentTimer.equals("ReadyT")) { //si début, au moment au l'activity est lancé
             tabataConfigurations = new TabataConfigurations(tpspreparation, tpsexercice, tpsrepos, nbCyclesRestant, nbTabatasRestant);
             currentTimer = "PreparationT"; //premier timer, celui pour le tps de preparation
             currentState = "inStart";
             timerEtat.setText("Preparation");
             timerEtat.setTextColor(Color.YELLOW);
-            Log.e("onStartClick","lance premier cycle");
             launch(); // lance le timer
         } else if (currentTimer.equals("PauseT")) { //si le bouton pause avait été cliqué auparavant
             currentState = "inStart";
@@ -168,12 +256,12 @@ public class StartActivity extends AppCompatActivity {
                 + String.format("%03d", milliseconds));
     }
 
-    private void parameters(){
-        startButton.setOnTouchListener(new View.OnTouchListener(){
+    private void parameters() {
+        startButton.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_UP){
+                if (event.getAction() == MotionEvent.ACTION_UP) {
                     startButton.setTextColor(Color.RED);
                     pauseButton.setTextColor(Color.GREEN);
                 }
@@ -181,16 +269,16 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        pauseButton.setOnTouchListener(new View.OnTouchListener(){
+        pauseButton.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_UP){
+                if (event.getAction() == MotionEvent.ACTION_UP) {
                     startButton.setTextColor(Color.GREEN);
                     pauseButton.setTextColor(Color.RED);
-                    if(pauseButton.getText().equals("Pause")){
+                    if (pauseButton.getText().equals("Pause")) {
                         pauseButton.setText("Reprendre");
-                    }else if (pauseButton.getText().equals("Reprendre")){
+                    } else if (pauseButton.getText().equals("Reprendre")) {
                         pauseButton.setText("Pause");
                     }
                 }

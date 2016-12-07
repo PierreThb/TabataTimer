@@ -53,10 +53,9 @@
         android:text="Ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tpsRepos"
-        android:layout_toLeftOf="@+id/buttonPlus"
-        android:layout_toStartOf="@+id/buttonPlus"
         android:layout_marginTop="83dp"
         android:id="@+id/buttonOk"
-        android:onClick="onClickOkCycle"/>
+        android:onClick="onClickOkCycle"
+        android:layout_below="@+id/tpsRepos"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

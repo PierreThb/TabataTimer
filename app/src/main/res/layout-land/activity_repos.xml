@@ -28,28 +28,6 @@
         android:layout_marginBottom="12dp" />
 
     <Button
-        android:id="@+id/buttonMoins"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="95dp"
-        android:onClick="changeValueRepos"
-        android:text="-" />
-
-    <Button
-        android:id="@+id/buttonPlus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonMoins"
-        android:layout_alignBottom="@+id/buttonMoins"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_alignRight="@+id/textView"
-        android:onClick="changeValueRepos"
-        android:text="+" />
-
-    <Button
         android:id="@+id/buttonOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,4 +36,29 @@
         android:layout_marginTop="87dp"
         android:onClick="onClickOkRepos"
         android:text="Ok" />
+
+    <Button
+        android:id="@+id/buttonMoins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="changeValueRepos"
+        android:text="-"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/buttonOk"
+        android:layout_toStartOf="@+id/buttonOk"
+        android:layout_marginRight="13dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="72dp" />
+
+    <Button
+        android:id="@+id/buttonPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="changeValueRepos"
+        android:text="+"
+        android:layout_above="@+id/buttonOk"
+        android:layout_toRightOf="@+id/buttonOk"
+        android:layout_toEndOf="@+id/buttonOk"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp" />
 </RelativeLayout>

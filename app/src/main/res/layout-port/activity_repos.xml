@@ -28,28 +28,6 @@
         android:layout_marginBottom="12dp" />
 
     <Button
-        android:id="@+id/buttonMoins"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="95dp"
-        android:onClick="changeValueRepos"
-        android:text="-" />
-
-    <Button
-        android:id="@+id/buttonPlus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonMoins"
-        android:layout_alignBottom="@+id/buttonMoins"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_alignRight="@+id/textView"
-        android:onClick="changeValueRepos"
-        android:text="+" />
-
-    <Button
         android:id="@+id/buttonOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,4 +36,26 @@
         android:layout_marginTop="87dp"
         android:onClick="onClickOkRepos"
         android:text="Ok" />
+
+    <Button
+        android:id="@+id/buttonMoins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:onClick="changeValueRepos"
+        android:text="-"
+        android:layout_below="@+id/textView"
+        android:layout_toLeftOf="@+id/buttonOk"
+        android:layout_toStartOf="@+id/buttonOk" />
+
+    <Button
+        android:id="@+id/buttonPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="changeValueRepos"
+        android:text="+"
+        android:layout_alignBaseline="@+id/tpsRepos"
+        android:layout_alignBottom="@+id/tpsRepos"
+        android:layout_toRightOf="@+id/buttonOk"
+        android:layout_toEndOf="@+id/buttonOk" />
 </RelativeLayout>

@@ -28,28 +28,6 @@
         android:id="@+id/nbTabata" />
 
     <Button
-        android:text="-"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="95dp"
-        android:id="@+id/buttonMoins"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:onClick="changeValueTabata"/>
-
-    <Button
-        android:text="+"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonPlus"
-        android:layout_alignBaseline="@+id/buttonMoins"
-        android:layout_alignBottom="@+id/buttonMoins"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:onClick="changeValueTabata"/>
-
-    <Button
         android:text="Ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,5 +36,28 @@
         android:layout_below="@+id/nbTabata"
         android:layout_centerHorizontal="true"
         android:onClick="onClickOkTabata"/>
+
+    <Button
+        android:text="-"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonMoins"
+        android:onClick="changeValueTabata"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/buttonOk"
+        android:layout_toStartOf="@+id/buttonOk"
+        android:layout_marginRight="21dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="69dp" />
+
+    <Button
+        android:text="+"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonPlus"
+        android:onClick="changeValueTabata"
+        android:layout_above="@+id/buttonOk"
+        android:layout_toRightOf="@+id/buttonOk"
+        android:layout_toEndOf="@+id/buttonOk" />
 
 </RelativeLayout>

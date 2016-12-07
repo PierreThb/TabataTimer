@@ -8,6 +8,6 @@
         android:id="@+id/dialog_input"
         android:layout_width="364dp"
         android:layout_height="wrap_content"
-        android:hint="Configuration name" />
+        android:hint="Nom de votre configuration" />
 
 </LinearLayout>
